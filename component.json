@@ -1,0 +1,16 @@
+{
+  "name": "Input",
+  "description": "",
+  "version": "0.1.0",
+  "keywords": [
+    "web-components",    
+    "x-tag"
+  ],
+  "main": [
+    "src/input.js",
+    "src/input.css"
+  ],
+  "dependencies": {
+    "x-tag-core": "*"
+  }
+}

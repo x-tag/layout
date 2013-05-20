@@ -1,0 +1,17 @@
+{
+	"name": "Input",
+	"tagName": "x-input",
+	"version": "0.1.0",
+	"author": "you",
+	"description": "",
+	"demo": "demo/demo.html",
+	"categories": [],
+	"compatibility": {
+		"firefox": 5,
+		"chrome": 4,
+		"ie": 9,
+		"opera": 12,
+		"android": 2.1,
+		"ios": 4
+	}
+}
