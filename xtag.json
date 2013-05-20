@@ -1,8 +1,8 @@
 {
-	"name": "Input",
-	"tagName": "x-input",
+	"name": "View",
+	"tagName": "x-view",
 	"version": "0.1.0",
-	"author": "you",
+	"author": "Daniel Buchner",
 	"description": "",
 	"demo": "demo/demo.html",
 	"categories": [],

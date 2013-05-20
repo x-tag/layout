@@ -1,5 +1,5 @@
 {
-  "name": "Input",
+  "name": "View",
   "description": "",
   "version": "0.1.0",
   "keywords": [
@@ -7,8 +7,8 @@
     "x-tag"
   ],
   "main": [
-    "src/input.js",
-    "src/input.css"
+    "src/view.js",
+    "src/view.css"
   ],
   "dependencies": {
     "x-tag-core": "*"
