@@ -6,7 +6,7 @@
       header: first && first.nodeName == 'HEADER' ? first : null,
       section: first && first.nodeName == 'SECTION' ? first : first && first.nextElementSibling && first.nextElementSibling.nodeName == 'SECTION' ? first.nextElementSibling : null,
       footer: view.lastElementChild.nodeName == 'FOOTER' ? view.lastElementChild : null
-    }
+    };
   }
   
   xtag.register('x-view', {
@@ -21,8 +21,8 @@
       }
     },
     events:{
-      transitionend: function(){
-        if (!this.hasAttribute('maxcontent')) {
+      transitionend: function(e){
+        if (!this.hasAttribute('maxcontent') && e.propertyName == 'height') {
           if (this.firstElementChild.nodeName == 'HEADER') {
             this.firstElementChild.style.height = '';
           }
@@ -46,13 +46,11 @@
               return function(){
                 if (elements.header) elements.header.style.height = '0px';
                 if (elements.footer) elements.footer.style.height = '0px';
-              }
+              };
             });
           }
           else {
-            
             var elements = getViewElements(view);
-            console.log(elements.header.scrollHeight);
             if (elements.header) elements.header.style.height = elements.header.scrollHeight + 'px';
             if (elements.footer) elements.footer.style.height = elements.footer.scrollHeight + 'px';
           }

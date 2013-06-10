@@ -73,11 +73,11 @@
 	xtag.addEvents(document, {
 		'tap:delegate(button)': function(){
 			if (this.className == 'max') {
-				this.className == '';
+				this.className = '';
 				view1.maxcontent = false;
 			}
 			else {
-				this.className == 'max';
+				this.className = 'max';
 				view1.maxcontent = true;
 			}
 		}

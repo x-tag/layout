@@ -32,31 +32,31 @@ x-view > header, x-view > footer {
 		-moz-transform: translate3d(0, 0%, 1px);
 		-ms-transform: translate3d(0, 0%, 1px);
 		transform: translate3d(0, 0%, 1px);
-		-webkit-transition: transform 0.6s ease-in-out, height 0.3s ease-in-out;
-		-moz-transition: transform 0.6s ease-in-out, height 0.3s ease-in-out;
-		-ms-transition: transform 0.6s ease-in-out, height 0.3s ease-in-out;
-		transition: transform 0.6s ease-in-out, height 0.3s ease-in-out;
+		-webkit-transition: transform 0.4s ease-in-out, height 0.3s ease-in-out;
+		-moz-transition: transform 0.4s ease-in-out, height 0.3s ease-in-out;
+		-ms-transition: transform 0.4s ease-in-out, height 0.3s ease-in-out;
+		transition: transform 0.4s ease-in-out, height 0.3s ease-in-out;
 	}
 	
 	x-view[maxcontent] > header, x-view[maxcontent] > footer  {
-		-webkit-transition: transform 0.3s ease-in-out, height 0.6s ease-in-out;
-		-moz-transition: transform 0.3s ease-in-out, height 0.6s ease-in-out;
-		-ms-transition: transform 0.3s ease-in-out, height 0.6s ease-in-out;
-		transition: transform 0.3s ease-in-out, height 0.6s ease-in-out;
+		-webkit-transition: transform 0.3s ease-in-out, height 0.45s ease-in-out;
+		-moz-transition: transform 0.3s ease-in-out, height 0.45s ease-in-out;
+		-ms-transition: transform 0.3s ease-in-out, height 0.45s ease-in-out;
+		transition: transform 0.3s ease-in-out, height 0.45s ease-in-out;
 	}
 	
 	x-view[maxcontent] > header {
-		-webkit-transform: translate3d(0, -100%, 1px);
-		-moz-transform: translate3d(0, -100%, 1px);
-		-ms-transform: translate3d(0, -100%, 1px);
-		transform: translate3d(0, -100%, 1px);
+		-webkit-transform: translate3d(0, -200%, 1px);
+		-moz-transform: translate3d(0, -200%, 1px);
+		-ms-transform: translate3d(0, -200%, 1px);
+		transform: translate3d(0, -200%, 1px);
 	}
 	
 	x-view[maxcontent] > footer {
-		-webkit-transform: translate3d(0, 100%, 1px);
-		-moz-transform: translate3d(0, 100%, 1px);
-		-ms-transform: translate3d(0, 100%, 1px);
-		transform: translate3d(0, 100%, 1px);
+		-webkit-transform: translate3d(0, 200%, 1px);
+		-moz-transform: translate3d(0, 200%, 1px);
+		-ms-transform: translate3d(0, 200%, 1px);
+		transform: translate3d(0, 200%, 1px);
 	}
 
 x-view > section {
