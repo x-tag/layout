@@ -59,12 +59,19 @@ x-view > header, x-view > footer {
 		transform: translate3d(0, 200%, 1px);
 	}
 
+
 x-view > section {
 	-webkit-box-flex: 1;
 	-moz-box-flex: 1;
 	-webkit-flex: 1;
 	-ms-flex: 1;
-	flex: 1;                  
+	flex: 1;
+    position: relative;
+}
+
+/* funky fix for flexbox not providing a width/height for children in webkit or firefox 18 */
+x-view > section > *:only-child{
+    position: absolute; 
 }
 
 x-view > *[input-spinner] {
