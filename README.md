@@ -1,6 +1,6 @@
 
 =======
-view
+layout
 ====
 
-A view element for intelligent content-context switching
+A layout element for intelligent content-context switching

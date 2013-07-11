@@ -1,15 +1,15 @@
 (function(){
   
-  function getViewElements(view){
-    var first = view.firstElementChild;
+  function getLayoutElements(layout){
+    var first = layout.firstElementChild;
     return {
       header: first && first.nodeName == 'HEADER' ? first : null,
       section: first && first.nodeName == 'SECTION' ? first : first && first.nextElementSibling && first.nextElementSibling.nodeName == 'SECTION' ? first.nextElementSibling : null,
-      footer: view.lastElementChild.nodeName == 'FOOTER' ? view.lastElementChild : null
+      footer: layout.lastElementChild.nodeName == 'FOOTER' ? layout.lastElementChild : null
     };
   }
   
-  xtag.register('x-view', {
+  xtag.register('x-layout', {
     lifecycle: {
       created: function(){
         
@@ -36,10 +36,10 @@
       maxcontent: {
         attribute: { boolean: true },
         set: function(){
-          var view = this;
+          var layout = this;
           if (this.hasAttribute('maxcontent')) {
             xtag.skipTransition(this, function(){
-              var elements = getViewElements(view);
+              var elements = getLayoutElements(layout);
               if (elements.header) elements.header.style.height = elements.header.getBoundingClientRect().height + 'px';
               if (elements.footer) elements.footer.style.height = elements.footer.getBoundingClientRect().height + 'px';
               
@@ -50,7 +50,7 @@
             });
           }
           else {
-            var elements = getViewElements(view);
+            var elements = getLayoutElements(layout);
             if (elements.header) elements.header.style.height = elements.header.scrollHeight + 'px';
             if (elements.footer) elements.footer.style.height = elements.footer.scrollHeight + 'px';
           }

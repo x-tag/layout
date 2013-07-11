@@ -1,5 +1,5 @@
 {
-  "name": "View",
+  "name": "Layout",
   "description": "",
   "version": "0.1.0",
   "keywords": [
@@ -7,8 +7,8 @@
     "x-tag"
   ],
   "main": [
-    "src/view.js",
-    "src/view.css"
+    "src/layout.js",
+    "src/layout.css"
   ],
   "dependencies": {
     "x-tag-core": "*"

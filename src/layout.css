@@ -1,5 +1,5 @@
 
-x-view {
+x-layout {
 	display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
 	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
 	display: -ms-flexbox;      /* TWEENER - IE 10 */
@@ -23,11 +23,11 @@ x-view {
 	flex-direction: column;
 }
 
-x-view > header, x-view > footer {
+x-layout > header, x-layout > footer {
 	overflow: hidden;
 }
 
-	x-view > header, x-view > footer {
+	x-layout > header, x-layout > footer {
 		-webkit-transform: translate3d(0, 0%, 1px);
 		-moz-transform: translate3d(0, 0%, 1px);
 		-ms-transform: translate3d(0, 0%, 1px);
@@ -38,21 +38,21 @@ x-view > header, x-view > footer {
 		transition: transform 0.4s ease-in-out, height 0.3s ease-in-out;
 	}
 	
-	x-view[maxcontent] > header, x-view[maxcontent] > footer  {
+	x-layout[maxcontent] > header, x-layout[maxcontent] > footer  {
 		-webkit-transition: transform 0.3s ease-in-out, height 0.45s ease-in-out;
 		-moz-transition: transform 0.3s ease-in-out, height 0.45s ease-in-out;
 		-ms-transition: transform 0.3s ease-in-out, height 0.45s ease-in-out;
 		transition: transform 0.3s ease-in-out, height 0.45s ease-in-out;
 	}
 	
-	x-view[maxcontent] > header {
+	x-layout[maxcontent] > header {
 		-webkit-transform: translate3d(0, -200%, 1px);
 		-moz-transform: translate3d(0, -200%, 1px);
 		-ms-transform: translate3d(0, -200%, 1px);
 		transform: translate3d(0, -200%, 1px);
 	}
 	
-	x-view[maxcontent] > footer {
+	x-layout[maxcontent] > footer {
 		-webkit-transform: translate3d(0, 200%, 1px);
 		-moz-transform: translate3d(0, 200%, 1px);
 		-ms-transform: translate3d(0, 200%, 1px);
@@ -60,7 +60,7 @@ x-view > header, x-view > footer {
 	}
 
 
-x-view > section {
+x-layout > section {
 	-webkit-box-flex: 1;
 	-moz-box-flex: 1;
 	-webkit-flex: 1;
@@ -70,11 +70,11 @@ x-view > section {
 }
 
 /* funky fix for flexbox not providing a width/height for children in webkit or firefox 18 */
-x-view > section > *:only-child{
+x-layout > section > *:only-child{
     position: absolute; 
 }
 
-x-view > *[input-spinner] {
+x-layout > *[input-spinner] {
 	display: block;
 	width: 0;
 	min-width: 0;
