@@ -4,13 +4,13 @@
 	<head>
 		<meta charset="utf-8" />
 		
-		<title>X-View Demo</title>
+		<title>X-Layout Demo</title>
 		
 		<link rel="stylesheet" type="text/css" href="x-tag-components.css"/>
-		<link rel="stylesheet" type="text/css" href="../src/view.css"/>		
+		<link rel="stylesheet" type="text/css" href="../src/layout.css"/>		
 		
 		<script type="text/javascript" src="x-tag-components.js"></script>
-		<script type="text/javascript" src="../src/view.js"></script> 
+		<script type="text/javascript" src="../src/layout.js"></script> 
 		
 		<style type="text/css">
 			
@@ -46,7 +46,7 @@
 
 <body>
 
-	<x-view id="view-1">
+	<x-layout id="layout-1" scroll-target= "ul">
 		<header>
 			<h1>I'm the Title!</h1>
 		</header>
@@ -59,26 +59,110 @@
 				<li>Five</li>
 				<li>Six</li>
 				<li><button>Seven</button></li>
+				<li>One</li>
+				<li>Two</li>
+				<li>Three</li>
+				<li>Four</li>
+				<li>Five</li>
+				<li>Six</li>
+				<li>One</li>
+				<li>Two</li>
+				<li>Three</li>
+				<li>Four</li>
+				<li>Five</li>
+				<li>Six</li>
+				<li>One</li>
+				<li>Two</li>
+				<li>Three</li>
+				<li>Four</li>
+				<li>Five</li>
+				<li>Six</li>
+				<li>One</li>
+				<li>Two</li>
+				<li>Three</li>
+				<li>Four</li>
+				<li>Five</li>
+				<li>Six</li>
+				<li>One</li>
+				<li>Two</li>
+				<li>Three</li>
+				<li>Four</li>
+				<li>Five</li>
+				<li>Six</li>
+				<li>One</li>
+				<li>Two</li>
+				<li>Three</li>
+				<li>Four</li>
+				<li>Five</li>
+				<li>Six</li>
+				<li>One</li>
+				<li>Two</li>
+				<li>Three</li>
+				<li>Four</li>
+				<li>Five</li>
+				<li>Six</li>
+				<li>One</li>
+				<li>Two</li>
+				<li>Three</li>
+				<li>Four</li>
+				<li>Five</li>
+				<li>Six</li>
+				<li>One</li>
+				<li>Two</li>
+				<li>Three</li>
+				<li>Four</li>
+				<li>Five</li>
+				<li>Six</li>
+				<li>One</li>
+				<li>Two</li>
+				<li>Three</li>
+				<li>Four</li>
+				<li>Five</li>
+				<li>Six</li>
+				<li>One</li>
+				<li>Two</li>
+				<li>Three</li>
+				<li>Four</li>
+				<li>Five</li>
+				<li>Six</li>
+				<li>One</li>
+				<li>Two</li>
+				<li>Three</li>
+				<li>Four</li>
+				<li>Five</li>
+				<li>Six</li>
+				<li>One</li>
+				<li>Two</li>
+				<li>Three</li>
+				<li>Four</li>
+				<li>Five</li>
+				<li>Six</li>
+				<li>One</li>
+				<li>Two</li>
+				<li>Three</li>
+				<li>Four</li>
+				<li>Five</li>
+				<li>Six</li>
 			</ul>
 		</section>
 		<footer>
 			<h3>I'm the Footer!</h3>	
 		</footer>
-	</x-view>
+	</x-layout>
 	
 </body>
 
 <script type="text/javascript">
-	var view1 = document.getElementById('view-1');
+	var layout = document.getElementById('layout-1');
 	xtag.addEvents(document, {
 		'tap:delegate(button)': function(){
 			if (this.className == 'max') {
 				this.className = '';
-				view1.maxcontent = false;
+				layout.maxcontent = false;
 			}
 			else {
 				this.className = 'max';
-				view1.maxcontent = true;
+				layout.maxcontent = true;
 			}
 		}
 	});
