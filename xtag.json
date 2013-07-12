@@ -1,6 +1,6 @@
 {
-	"name": "View",
-	"tagName": "x-view",
+	"name": "Layout",
+	"tagName": "x-layout",
 	"version": "0.1.0",
 	"author": "Daniel Buchner",
 	"description": "",

@@ -2114,7 +2114,7 @@ if (window.ShadowDOMPolyfill) {
   var win = window,
     doc = document,
     noop = function(){},
-    regexPseudoSplit = /(\w+(?:\([^\)]+\))?)/g,
+    regexPseudoSplit = /([\w-]+(?:\([^\)]+\))?)/g,
     regexPseudoReplace = /(\w*)(?:\(([^\)]*)\))?/,
     regexDigits = /(\d+)/g,
     keypseudo = {
@@ -2133,7 +2133,7 @@ if (window.ShadowDOMPolyfill) {
         dom: pre == 'ms' ? pre.toUpperCase() : pre,
         lowercase: pre,
         css: '-' + pre + '-',
-        js: pre[0].toUpperCase() + pre.substr(1)
+        js: pre == 'ms' ? pre : pre[0].toUpperCase() + pre.substr(1)
       };
 
     })(),
@@ -2227,66 +2227,14 @@ if (window.ShadowDOMPolyfill) {
     return tag;
   }
 
-// Accessors
-
-  function attachProperties(tag, prop, z, accessor, attr, sync){
-    var key = z.split(':'), type = key[0];
-    if (type == 'get') {
-      key[0] = prop;
-      tag.prototype[prop].get = xtag.applyPseudos(key.join(':'), accessor[z], tag.pseudos);
-    }
-    else if (type == 'set') {
-      key[0] = prop;
-      tag.prototype[prop].set = xtag.applyPseudos(key.join(':'), attr ? function(value){
-        sync.call(this, value);
-        accessor[z].call(this, value);
-      } : accessor[z], tag.pseudos);
-    }
-    else tag.prototype[prop][z] = accessor[z];
-  }
-
-  function parseAccessor(tag, prop){
-    tag.prototype[prop] = {};
-    var accessor = tag.accessors[prop],
-        attr = accessor.attribute,
-        name = attr && attr.name ? attr.name.toLowerCase() : prop,
-        sync = null;
-
-    if (attr) {
-      tag.attributes[name] = attr;
-      tag.attributes[name].setter = prop;
-      sync = function(value){
-        var node = this.xtag.attributeNodes[name];
-        if (!node || (node != this && !node.parentNode)) {
-          node = this.xtag.attributeNodes[name] = attr.property ? this.xtag[attr.property] : attr.selector ? this.querySelector(attr.selector) : this;
-        }
-        var val = attr.boolean ? '' : value,
-            method = (attr.boolean && (value === false || value === null)) ? 'removeAttribute' : value === null ? 'removeAttribute' : 'setAttribute';
-        if (value != (attr.boolean ? this.hasAttribute(name) : this.getAttribute(name))) this[method](name, val, true);
-        if (node && node != this && (value != (attr.boolean ? node.hasAttribute(name) : node.getAttribute(name)))) node[method](name, val, true);
-      };
-    }
-
-    for (var z in accessor) attachProperties(tag, prop, z, accessor, attr, sync);
-
-    if (attr) {
-      if (!tag.prototype[prop].get) {
-        var method = (attr.boolean ? 'has' : 'get') + 'Attribute';
-        tag.prototype[prop].get = function(){
-          return this[method](name);
-        };
-      }
-      if (!tag.prototype[prop].set) tag.prototype[prop].set = sync;
-    }
-
-  }
-
 // Events
 
   function touchFilter(custom, event) {
-    if (custom.listener.touched) return custom.listener.touched = false;
-    else {
-      if (event.type.match('touch')) custom.listener.touched = true;
+    if (custom.listener.touched) {
+      return custom.listener.touched = false;
+    }
+    else if (event.type.match('touch')){
+     custom.listener.touched = true;
     }
   }
 
@@ -2304,6 +2252,80 @@ if (window.ShadowDOMPolyfill) {
     };
   }
 
+// Accessors
+
+  function getArgs(attr, value){
+    return {
+      value: attr.boolean ? '' : value,
+      method: attr.boolean && !value ? 'removeAttribute' : 'setAttribute'
+    };
+  }
+
+  function modAttr(element, attr, name, value){
+    var args = getArgs(attr, value);
+    element[args.method](name, args.value);
+  }
+
+  function syncAttr(element, attr, name, value, method){
+    var nodes = attr.property ? [element.xtag[attr.property]] : attr.selector ? xtag.query(element, attr.selector) : [],
+        index = nodes.length;
+    while (index--) nodes[index][method](name, value);
+  }
+  
+  function updateTemplate(element, name, value){
+    if (element.template){
+      element.xtag.template.updateBindingValue(element, name, value);
+    }
+  }
+
+  function attachProperties(tag, prop, z, accessor, attr, name){
+    var key = z.split(':'), type = key[0];
+    if (type == 'get') {
+      key[0] = prop;
+      tag.prototype[prop].get = xtag.applyPseudos(key.join(':'), accessor[z], tag.pseudos);
+    }
+    else if (type == 'set') {
+      key[0] = prop; 
+      var setter = tag.prototype[prop].set = xtag.applyPseudos(key.join(':'), attr ? function(value){
+        this.xtag._skipSet = true;
+        if (!this.xtag._skipAttr) modAttr(this, attr, name, value);
+        if (this.xtag._skipAttr && attr.skip) delete this.xtag._skipAttr;
+        accessor[z].call(this, attr.boolean ? !!value : value);
+        updateTemplate(this, name, value);
+        delete this.xtag._skipSet;
+      } : accessor[z] ? function(value){
+        accessor[z].call(this, value);
+        updateTemplate(this, name, value);
+      } : null, tag.pseudos);
+      
+      if (attr) attr.setter = setter;
+    }
+    else tag.prototype[prop][z] = accessor[z];
+  }
+
+  function parseAccessor(tag, prop){
+    tag.prototype[prop] = {};
+    var accessor = tag.accessors[prop],
+        attr = accessor.attribute,
+        name = attr && attr.name ? attr.name.toLowerCase() : prop;
+
+    if (attr) tag.attributes[name] = attr;
+    for (var z in accessor) attachProperties(tag, prop, z, accessor, attr, name);
+
+    if (attr) {
+      if (!tag.prototype[prop].get) {
+        var method = (attr.boolean ? 'has' : 'get') + 'Attribute';
+        tag.prototype[prop].get = function(){
+          return this[method](name);
+        };
+      }
+      if (!tag.prototype[prop].set) tag.prototype[prop].set = function(value){
+        modAttr(this, attr, name, value);
+        updateTemplate(this, name, value);
+      };
+    }
+  }
+
 /*** X-Tag Object Definition ***/
 
   var xtag = {
@@ -2313,83 +2335,133 @@ if (window.ShadowDOMPolyfill) {
       mixins: [],
       events: {},
       methods: {},
-      accessors: {},
+      accessors: {
+        template: {
+          attribute: {},
+          set: function(value){
+            var last = this.getAttribute('template');
+            this.xtag.__previousTemplate__ = last;
+            xtag.fireEvent(this, 'templatechange', { template: value });
+          }
+        }
+      },
       lifecycle: {},
       attributes: {},
       'prototype': {
         xtag: {
           get: function(){
-            return this.__xtag__ ? this.__xtag__ : (this.__xtag__ = { data: {}, attributeNodes: {} });
+            return this.__xtag__ ? this.__xtag__ : (this.__xtag__ = { data: {} });
           }
         }
       }
     },
     register: function (name, options) {
-      var _name = name.toLowerCase();
+      var element, _name;
+      if (typeof name == 'string') {
+        _name = name.toLowerCase();
+      } else if (name.nodeName == 'ELEMENT') {
+        element = name;
+        _name = element.getAttribute('name').toLowerCase();
+      } else {
+        return;
+      }
+
       var tag = xtag.tags[_name] = applyMixins(xtag.merge({}, xtag.defaultOptions, options));
 
       for (var z in tag.events) tag.events[z] = xtag.parseEvent(z, tag.events[z]);
       for (z in tag.lifecycle) tag.lifecycle[z.split(':')[0]] = xtag.applyPseudos(z, tag.lifecycle[z], tag.pseudos);
-      for (z in tag.methods) tag.prototype[z.split(':')[0]] = { value: xtag.applyPseudos(z, tag.methods[z], tag.pseudos) };
-      for (var prop in tag.accessors) parseAccessor(tag, prop);
+      for (z in tag.methods) tag.prototype[z.split(':')[0]] = { value: xtag.applyPseudos(z, tag.methods[z], tag.pseudos), enumerable: true };
+      for (z in tag.accessors) parseAccessor(tag, z);
 
       var ready = tag.lifecycle.created || tag.lifecycle.ready;
       tag.prototype.readyCallback = {
+        enumerable: true,
         value: function(){
-          var element = this,
-              setAttr = this.setAttribute,
-              removeAttr = this.removeAttribute;
-
-          Object.defineProperties(this, {
-            setAttribute: {
-              value: function (name, value, skip){
-                var attr = tag.attributes[name.toLowerCase()],
-                    val = attr && attr.boolean ? '' : value;
-                setAttr.call(this, name, val);
-                if (attr && !skip) this[attr.setter] = attr.boolean ? this.hasAttribute(name) : this.getAttribute(name);
-              }
-            },
-            removeAttribute: {
-              value: function (name, value, skip){
-                var attr = tag.attributes[name.toLowerCase()];
-                removeAttr.call(this, name);
-                if (attr && !skip) this[attr.setter] = attr.boolean ? false : null;
-              }
-            }
-          });
-
+          var element = this;
+          var template = element.getAttribute('template');
+          if (template){
+            xtag.fireEvent(this, 'templatechange', { template: template });
+          }
           xtag.addEvents(this, tag.events);
           tag.mixins.forEach(function(mixin){
             if (xtag.mixins[mixin].events) xtag.addEvents(element, xtag.mixins[mixin].events);
           });
-
           var output = ready ? ready.apply(this, toArray(arguments)) : null;
-
+          for (var name in tag.attributes) {
+            var attr = tag.attributes[name],
+                hasAttr = this.hasAttribute(name);
+            if (attr.setter && (attr.boolean || hasAttr)) {
+              attr.setter.call(this, attr.boolean ? hasAttr : this.getAttribute(name));
+            }
+          }
           tag.pseudos.forEach(function(obj){
             obj.onAdd.call(element, obj);
           });
-
           return output;
         }
       };
 
-      if (tag.lifecycle.inserted) tag.prototype.insertedCallback = { value: tag.lifecycle.inserted };
-      if (tag.lifecycle.removed) tag.prototype.removedCallback = { value: tag.lifecycle.removed };
-      if (tag.lifecycle.attributeChanged) tag.prototype.attributeChangedCallback = { value: tag.lifecycle.attributeChanged };
+      if (tag.lifecycle.inserted) tag.prototype.insertedCallback = { value: tag.lifecycle.inserted, enumerable: true };
+      if (tag.lifecycle.removed) tag.prototype.removedCallback = { value: tag.lifecycle.removed, enumerable: true };
+      if (tag.lifecycle.attributeChanged) tag.prototype.attributeChangedCallback = { value: tag.lifecycle.attributeChanged, enumerable: true };
 
-      var constructor = doc.register(_name, {
-        'extends': options['extends'],
-        'prototype': Object.create((options['extends'] ? document.createElement(options['extends']).constructor : win.HTMLElement).prototype, tag.prototype)
-      });
+      var setAttribute = tag.prototype.setAttribute || HTMLElement.prototype.setAttribute;
+      tag.prototype.setAttribute = {
+        writable: true,
+        enumberable: true,
+        value: function (name, value){
+          var attr = tag.attributes[name.toLowerCase()];
+          if (!this.xtag._skipAttr) setAttribute.call(this, name, attr && attr.boolean ? '' : value);
+          if (attr) {
+            if (attr.setter && !this.xtag._skipSet) {
+              this.xtag._skipAttr = true;
+              attr.setter.call(this, attr.boolean ? true : value);
+            }
+            value = attr.skip ? attr.boolean ? this.hasAttribute(name) : this.getAttribute(name) : value;
+            syncAttr(this, attr, name, attr.boolean ? '' : value, 'setAttribute');
+          }
+          delete this.xtag._skipAttr;
+        }
+      };
+      
+      var removeAttribute = tag.prototype.removeAttribute || HTMLElement.prototype.removeAttribute;
+      tag.prototype.removeAttribute = {
+        writable: true,
+        enumberable: true,
+        value: function (name){
+          var attr = tag.attributes[name.toLowerCase()];
+          if (!this.xtag._skipAttr) removeAttribute.call(this, name);
+          if (attr) {
+            if (attr.setter && !this.xtag._skipSet) {
+              this.xtag._skipAttr = true;
+              attr.setter.call(this, attr.boolean ? false : undefined);
+            }
+            syncAttr(this, attr, name, undefined, 'removeAttribute');
+          }
+          delete this.xtag._skipAttr;
+        }
+      };
 
-      return constructor;
+      if (element){
+        element.register({
+          'prototype': Object.create(Object.prototype, tag.prototype)
+        });
+      } else {
+        return doc.register(_name, {
+          'extends': options['extends'],
+          'prototype': Object.create(Object.create((options['extends'] ?
+            document.createElement(options['extends']).constructor :
+            win.HTMLElement).prototype, tag.prototype), tag.prototype)
+        });
+      }
     },
 
     /* Exposed Variables */
 
     mixins: {},
     prefix: prefix,
-    captureEvents: ['focus', 'blur'],
+    templates: {},
+    captureEvents: ['focus', 'blur', 'scroll', 'underflow', 'overflow', 'overflowchanged'],
     customEvents: {
       overflow: createFlowEvent('over'),
       underflow: createFlowEvent('under'),
@@ -2459,7 +2531,7 @@ if (window.ShadowDOMPolyfill) {
     toArray: toArray,
 
     wrap: function (original, fn) {
-      return function () {
+      return function(){
         var args = toArray(arguments),
           returned = original.apply(this, args);
         return returned === false ? false : fn.apply(this, typeof returned != 'undefined' ? toArray(returned) : args);
@@ -2475,20 +2547,22 @@ if (window.ShadowDOMPolyfill) {
       return source;
     },
 
+    uid: function(){
+      return Math.random().toString(36).substr(2,10);
+    },
+
     /* DOM */
 
     query: query,
 
     skipTransition: function(element, fn, bind){
-      var duration = prefix.js + 'TransitionDuration';
-      element.style[duration] = '0.001s';
-      element.style.transitionDuration = '0.001s';
+      var prop = prefix.js + 'TransitionProperty';
+      element.style[prop] = element.style.transitionProperty = 'none';
       xtag.requestFrame(function(){
         var callback;
         if (fn) callback = fn.call(bind);
         xtag.requestFrame(function(){
-          element.style[duration] = '';
-          element.style.transitionDuration = '';
+          element.style[prop] = element.style.transitionProperty = '';
           if (callback) xtag.requestFrame(callback);
         });
       });
@@ -2544,7 +2618,7 @@ if (window.ShadowDOMPolyfill) {
 
     queryChildren: function (element, selector) {
       var id = element.id,
-        guid = element.id = id || 'x_' + new Date().getTime(),
+        guid = element.id = id || 'x_' + xtag.uid(),
         attr = '#' + guid + ' > ';
       selector = attr + (selector + '').replace(',', ',' + attr, 'g');
       var result = element.parentNode.querySelectorAll(selector);
@@ -2584,11 +2658,11 @@ if (window.ShadowDOMPolyfill) {
             i = split.length;
         while (--i) {
           split[i].replace(regexPseudoReplace, function (match, name, value) {
+            if (!xtag.pseudos[name]) throw "pseudo not found: " + name + " " + split;
             var pseudo = pseudos[i] = Object.create(xtag.pseudos[name]);
                 pseudo.key = key;
                 pseudo.name = name;
                 pseudo.value = value;
-            if (!pseudo) throw "pseudo not found: " + name;
             var last = listener;
             listener = function(){
               var args = toArray(arguments),
@@ -2682,12 +2756,19 @@ if (window.ShadowDOMPolyfill) {
       for (var z in listeners) xtag.removeEvent(element, z, listeners[z]);
     },
 
-    fireEvent: function(element, type, data, options){
-      options = options || {};
-      var event = doc.createEvent('Event');
-      event.initEvent(type, 'bubbles' in options ? options.bubbles : true, 'cancelable' in options ? options.cancelable : true);
-      for (var z in data) event[z] = data[z];
-      element.dispatchEvent(event);
+    fireEvent: function(element, type, options, warn){
+      var options = options || {},
+          event = doc.createEvent('CustomEvent');
+      if (warn) console.warn('fireEvent has been modified, more info here: ');
+      event.initCustomEvent(type,
+        options.bubbles == false ? false : true,
+        options.cancelable == false ? false : true,
+        options.detail
+      );
+      try { element.dispatchEvent(event); }
+      catch (e) {
+        console.warn('This error may have been caused by a change in the fireEvent method, more info here: ', e);
+      }
     },
 
     addObserver: function(element, type, fn){
@@ -2730,5 +2811,9 @@ if (window.ShadowDOMPolyfill) {
 
   if (typeof define == 'function' && define.amd) define(xtag);
   else win.xtag = xtag;
+
+  doc.addEventListener('WebComponentsReady', function(){
+    xtag.fireEvent(doc.body, 'DOMComponentsLoaded');
+  });
 
 })();

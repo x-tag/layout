@@ -9,7 +9,7 @@
       section: first.nodeName == 'SECTION' ? first : second && second.nodeName == 'SECTION' ? second : null,
       footer: layout.lastElementChild.nodeName == 'FOOTER' ? layout.lastElementChild : null
     };
-  };
+  }
   
   function getLayoutScroll(layout, element){
     var scroll = element.__layoutScroll__ = element.__layoutScroll__ || Object.defineProperty(element, '__layoutScroll__', {
@@ -60,12 +60,12 @@
         scroll.last = now;
       }
     }
-  };
+  }
   
   var margin = {
     'margin-top': 'marginTop',
-    'margin-bottom': 'marginBottom',
-  }
+    'margin-bottom': 'marginBottom'
+  };
   
   xtag.register('x-layout', {
     lifecycle: {
@@ -88,7 +88,7 @@
       },
       'tap:delegate(section)': function(e){
         var layout = e.currentTarget;
-        if (this.parentNode == layout) {
+        if (layout.taphide && this.parentNode == layout) {
           var elements = getLayoutElements(layout);
           if (layout.hasAttribute('content-maximizing') || layout.hasAttribute('content-maximized')) {
             if (!layout.maxcontent) minContent(layout, elements);
@@ -99,13 +99,13 @@
       'mouseover:delegate(section)': function(e){
         var layout = e.currentTarget;
         if (layout.hoverhide && this.parentNode == layout && !layout.hasAttribute('content-maximized') && !layout.hasAttribute('content-maximizing') && (!e.relatedTarget || this.contains(e.target))) {
-          maxContent(layout, getLayoutElements(layout))
+          maxContent(layout, getLayoutElements(layout));
         }
       },
       'mouseout:delegate(section)': function(e){
         var layout = e.currentTarget;
         if (layout.hoverhide && this.parentNode == layout && (layout.hasAttribute('content-maximized') || layout.hasAttribute('content-maximizing')) && (layout == e.relatedTarget || !layout.contains(e.relatedTarget))) {
-          minContent(layout, getLayoutElements(layout))
+          minContent(layout, getLayoutElements(layout));
         }
       }
     },
@@ -132,7 +132,6 @@
         attribute: { boolean: true },
         set: function(value){
           var elements = getLayoutElements(this);
-         // console.log(value, this.hasAttribute('maxcontent'))
           if (value) maxContent(this, elements);
           else if (!this.hasAttribute('content-maximizing')) minContent(this, elements);
         }
