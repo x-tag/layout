@@ -4,7 +4,7 @@
 	"version": "0.1.0",
 	"author": "Daniel Buchner",
 	"description": "",
-	"demo": "demo/demo.html",
+	"demo": "demo/index.html",
 	"categories": [],
 	"compatibility": {
 		"firefox": 5,
