@@ -62,7 +62,7 @@ x-layout > *[input-spinner] {
 	min-width: 0;
 	margin: 0;
 	padding: 0;
-	background: url(http://people.mozilla.com/~dbuchner/spinner-14.gif) no-repeat right center;
+	background: url(spinner-14.gif) no-repeat right center;
 	opacity: 0;
 	-webkit-transition: width 0.2s, opacity 0.3s;
 	-moz-transition: width 0.2s, opacity 0.3s;
