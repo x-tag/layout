@@ -27,24 +27,24 @@ x-layout > header, x-layout > footer {
 	z-index: 1;
 }
 
-	x-layout > header, x-layout > footer {
-		-webkit-transition: margin 0.2s ease-in-out
-		-moz-transition: margin 0.2s ease-in-out;
-		-ms-transition: margin 0.2s ease-in-out;
-		transition: margin 0.2s ease-in-out;
-	}
-	
-	x-layout[maxcontent] > header, x-layout[maxcontent] > footer  {
-	
-	}
-	
-	x-layout[maxcontent] > header {
+x-layout > header, x-layout > footer {
+	-webkit-transition: margin 0.2s ease-in-out
+	-moz-transition: margin 0.2s ease-in-out;
+	-ms-transition: margin 0.2s ease-in-out;
+	transition: margin 0.2s ease-in-out;
+}
 
-	}
-	
-	x-layout[maxcontent] > footer {
+x-layout[maxcontent] > header, x-layout[maxcontent] > footer  {
 
-	}
+}
+
+x-layout[maxcontent] > header {
+
+}
+
+x-layout[maxcontent] > footer {
+
+}
 
 x-layout > section {
 	-webkit-box-flex: 1;
