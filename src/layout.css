@@ -56,7 +56,7 @@ x-layout > section {
 	position: relative;
 }
 
-x-view > section > *:only-child { 
+x-layout > section > *:only-child { 
 	position: absolute;	
 }
 
