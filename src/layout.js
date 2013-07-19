@@ -5,8 +5,8 @@
     if (!first) return { header: null, section: null, footer: null };
     var second = first.nextElementSibling;
     return {
-      header: first.nodeName == 'HEADER' ? first : null,
-      section: first.nodeName == 'SECTION' ? first : second && second.nodeName == 'SECTION' ? second : null,
+      header: (first.nodeName == 'HEADER') ? first : null,
+      section: (first.nodeName == 'SECTION') ? first : (second && second.nodeName == 'SECTION' ? second : null),
       footer: layout.lastElementChild.nodeName == 'FOOTER' ? layout.lastElementChild : null
     };
   }
@@ -26,14 +26,18 @@
   
   function maxContent(layout, elements){
     layout.setAttribute('content-maximizing', null);
-    if (elements.header) elements.header.style.marginTop = '-' + elements.header.getBoundingClientRect().height + 'px';
-    if (elements.footer) elements.footer.style.marginBottom = '-' + elements.footer.getBoundingClientRect().height + 'px';
+    if (elements.header){ 
+      elements.section.style.marginTop = '-' + elements.header.getBoundingClientRect().height + 'px';
+    }
+    if (elements.footer){ 
+      elements.section.style.marginBottom = '-' + elements.footer.getBoundingClientRect().height + 'px';
+    }
   }
   
   function minContent(layout, elements){
     layout.removeAttribute('content-maximized');
-    if (elements.header)  elements.header.style.marginTop = 0;
-    if (elements.footer) elements.footer.style.marginBottom = 0;
+    if (elements.header)  elements.section.style.marginTop = "";
+    if (elements.footer) elements.section.style.marginBottom = "";
   }
   
   function evaluateScroll(event){

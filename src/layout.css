@@ -28,10 +28,25 @@ x-layout > header, x-layout > footer {
 }
 
 x-layout > header, x-layout > footer {
-	-webkit-transition: margin 0.2s ease-in-out
-	-moz-transition: margin 0.2s ease-in-out;
-	-ms-transition: margin 0.2s ease-in-out;
-	transition: margin 0.2s ease-in-out;
+	transition-property: transform;
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    -ms-transition-property: -ms-transform;
+    -o-transition-property: -o-transform;
+    transition-duration: 0.2s;
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
+    -ms-transition-duration: 0.2s;
+    -o-transition-duration: 0.2s;
+    -webkit-transition-timing-function: ease-in-out;
+    -moz-transition-timing-function: ease-in-out;
+    -ms-transition-timing-function: ease-in-out;
+    -o-transition-timing-function: ease-in-out;
+    transition-timing-function: ease-in-out;
+    -webkit-transform: translate3d(0,0,1px);
+	-moz-transform: translate3d(0,0,1px);
+	-ms-transform: translate3d(0,0,1px);
+	transform: translate3d(0,0,1px);
 }
 
 x-layout[maxcontent] > header, x-layout[maxcontent] > footer  {
@@ -39,11 +54,17 @@ x-layout[maxcontent] > header, x-layout[maxcontent] > footer  {
 }
 
 x-layout[maxcontent] > header {
-
+	-webkit-transform: translate3d(0, -100%, 1px);
+	-moz-transform: translate3d(0, -100%, 1px);
+	-ms-transform: translate3d(0, -100%, 1px);
+	transform: translate3d(0, -100%, 1px);
 }
 
 x-layout[maxcontent] > footer {
-
+	-webkit-transform: translate3d(0, 100%, 1px);
+	-moz-transform: translate3d(0, 100%, 1px);
+	-ms-transform: translate3d(0, 100%, 1px);
+	transform: translate3d(0, 100%, 1px);
 }
 
 x-layout > section {
@@ -54,6 +75,11 @@ x-layout > section {
 	flex: 1;
 	overflow: auto;
 	position: relative;
+
+	-webkit-transition: margin 0.2s ease-in-out
+	-moz-transition: margin 0.2s ease-in-out;
+	-ms-transition: margin 0.2s ease-in-out;
+	transition: margin 0.2s ease-in-out;
 }
 
 x-layout > section > *:only-child { 
