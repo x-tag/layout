@@ -54,6 +54,13 @@ x-layout > section {
 	-ms-transform: translateZ(0);
 	transform: translateZ(0);
 	overflow: auto;
+	position: relative;
+}
+
+/* DONT ERASE THIS; this fixes an issue in ff18 with 100% height children of 
+   flex items */
+x-layout > section > *:only-child { 
+	position: absolute;	
 }
 
 x-layout[content-maximizing] > header, x-layout[content-maximized] > header, x-layout[maxcontent] > header{
