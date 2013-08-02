@@ -36,8 +36,8 @@
     layout.removeAttribute('content-maximized');
     layout.removeAttribute('content-maximizing');
     if (elements.section) {
-      elements.section.style.marginTop = 0;
-      elements.section.style.marginBottom = 0;
+      elements.section.style.marginTop = '';
+      elements.section.style.marginBottom = '';
     }
   }
   
@@ -101,7 +101,7 @@
         if (layout.hoverhide && this.parentNode == layout && (layout.hasAttribute('content-maximized') || layout.hasAttribute('content-maximizing')) && (layout == e.relatedTarget || !layout.contains(e.relatedTarget))) {
           minContent(layout, getLayoutElements(layout));
         }
-      },
+      }
     },
     accessors: {
       scrollTarget: {
