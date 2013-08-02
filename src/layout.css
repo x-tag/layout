@@ -1,3 +1,4 @@
+
 x-layout {
 	display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
 	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
@@ -25,47 +26,18 @@ x-layout {
 x-layout > header, x-layout > footer {
 	overflow: hidden;
 	z-index: 1;
+	-webkit-transform: translateZ(0);
+	-moz-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	transform: translateZ(0);
 }
 
-x-layout > header, x-layout > footer {
-	transition-property: transform;
-    -webkit-transition-property: -webkit-transform;
-    -moz-transition-property: -moz-transform;
-    -ms-transition-property: -ms-transform;
-    -o-transition-property: -o-transform;
-    transition-duration: 0.2s;
-    -webkit-transition-duration: 0.2s;
-    -moz-transition-duration: 0.2s;
-    -ms-transition-duration: 0.2s;
-    -o-transition-duration: 0.2s;
-    -webkit-transition-timing-function: ease-in-out;
-    -moz-transition-timing-function: ease-in-out;
-    -ms-transition-timing-function: ease-in-out;
-    -o-transition-timing-function: ease-in-out;
-    transition-timing-function: ease-in-out;
-    -webkit-transform: translate3d(0,0,1px);
-	-moz-transform: translate3d(0,0,1px);
-	-ms-transform: translate3d(0,0,1px);
-	transform: translate3d(0,0,1px);
-}
-
-x-layout[maxcontent] > header, x-layout[maxcontent] > footer  {
-
-}
-
-x-layout[maxcontent] > header {
-	-webkit-transform: translate3d(0, -100%, 1px);
-	-moz-transform: translate3d(0, -100%, 1px);
-	-ms-transform: translate3d(0, -100%, 1px);
-	transform: translate3d(0, -100%, 1px);
-}
-
-x-layout[maxcontent] > footer {
-	-webkit-transform: translate3d(0, 100%, 1px);
-	-moz-transform: translate3d(0, 100%, 1px);
-	-ms-transform: translate3d(0, 100%, 1px);
-	transform: translate3d(0, 100%, 1px);
-}
+	x-layout > header, x-layout > footer {
+		-webkit-transition: -webkit-transform 0.2s ease-in-out;
+		-moz-transition: -moz-transform 0.2s ease-in-out;
+		-ms-transition: -ms-transform 0.2s ease-in-out;
+		transition: transform 0.2s ease-in-out;
+	}
 
 x-layout > section {
 	-webkit-box-flex: 1;
@@ -73,17 +45,29 @@ x-layout > section {
 	-webkit-flex: 1;
 	-ms-flex: 1;
 	flex: 1;
-	overflow: auto;
-	position: relative;
-
 	-webkit-transition: margin 0.2s ease-in-out
 	-moz-transition: margin 0.2s ease-in-out;
 	-ms-transition: margin 0.2s ease-in-out;
 	transition: margin 0.2s ease-in-out;
+	-webkit-transform: translateZ(0);
+	-moz-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	transform: translateZ(0);
+	overflow: auto;
 }
 
-x-layout > section > *:only-child { 
-	position: absolute;	
+x-layout[content-maximizing] > header, x-layout[content-maximized] > header, x-layout[maxcontent] > header{
+	-webkit-transform: translateY(-100%);
+	-moz-transform: translateY(-100%);
+	-ms-transform: translateY(-100%);
+	transform: translateY(-100%);
+}
+
+x-layout[content-maximizing] > footer, x-layout[content-maximized] > footer, x-layout[maxcontent] > footer  {
+	-webkit-transform: translateY(100%);
+	-moz-transform: translateY(100%);
+	-ms-transform: translateY(100%);
+	transform: translateY(100%);
 }
 
 x-layout > *[input-spinner] {
@@ -92,7 +76,7 @@ x-layout > *[input-spinner] {
 	min-width: 0;
 	margin: 0;
 	padding: 0;
-	background: url(spinner-14.gif) no-repeat right center;
+	background: url(http://people.mozilla.com/~dbuchner/spinner-14.gif) no-repeat right center;
 	opacity: 0;
 	-webkit-transition: width 0.2s, opacity 0.3s;
 	-moz-transition: width 0.2s, opacity 0.3s;

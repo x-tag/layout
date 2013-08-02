@@ -1,12 +1,12 @@
 (function(){
-  
+
   function getLayoutElements(layout){
     var first = layout.firstElementChild;   
     if (!first) return { header: null, section: null, footer: null };
     var second = first.nextElementSibling;
     return {
-      header: (first.nodeName == 'HEADER') ? first : null,
-      section: (first.nodeName == 'SECTION') ? first : (second && second.nodeName == 'SECTION' ? second : null),
+      header: first.nodeName == 'HEADER' ? first : null,
+      section: first.nodeName == 'SECTION' ? first : second && second.nodeName == 'SECTION' ? second : null,
       footer: layout.lastElementChild.nodeName == 'FOOTER' ? layout.lastElementChild : null
     };
   }
@@ -26,18 +26,19 @@
   
   function maxContent(layout, elements){
     layout.setAttribute('content-maximizing', null);
-    if (elements.header){ 
-      elements.section.style.marginTop = '-' + elements.header.getBoundingClientRect().height + 'px';
-    }
-    if (elements.footer){ 
-      elements.section.style.marginBottom = '-' + elements.footer.getBoundingClientRect().height + 'px';
+    if (elements.section) {
+      if (elements.header) elements.section.style.marginTop = '-' + elements.header.getBoundingClientRect().height + 'px';
+      if (elements.footer) elements.section.style.marginBottom = '-' + elements.footer.getBoundingClientRect().height + 'px';
     }
   }
   
   function minContent(layout, elements){
     layout.removeAttribute('content-maximized');
-    if (elements.header)  elements.section.style.marginTop = "";
-    if (elements.footer) elements.section.style.marginBottom = "";
+    layout.removeAttribute('content-maximizing');
+    if (elements.section) {
+      elements.section.style.marginTop = 0;
+      elements.section.style.marginBottom = 0;
+    }
   }
   
   function evaluateScroll(event){
@@ -50,8 +51,6 @@
             buffer = layout.scrollBuffer,
             elements = getLayoutElements(layout),
             scroll = getLayoutScroll(layout, target);
-        
-      //  console.log(scroll, event);
         
         if (now > scroll.last) scroll.min = Math.max(now - buffer, buffer);
         else if (now < scroll.last) scroll.max = Math.max(now + buffer, buffer);
@@ -66,29 +65,20 @@
     }
   }
   
-  var margin = {
-    'margin-top': 'marginTop',
-    'margin-bottom': 'marginBottom'
-  };
-  
   xtag.register('x-layout', {
     lifecycle: {
       created: function(){
         
       }
     },
-    methods: {
-      
-    },
-    events:{
+    events: {
       scroll: evaluateScroll,
       transitionend: function(e){
         var elements = getLayoutElements(this);
-        this.removeAttribute('content-maximizing');
-        if ((e.target == elements.header || e.target == elements.footer) && e.target.style[margin[e.propertyName]] == '0px') {
-          this.removeAttribute('content-maximized');
+        if (this.hasAttribute('content-maximizing') && (e.target == elements.header || e.target == elements.section || e.target == elements.footer)) {
+          this.setAttribute('content-maximized', null);
+          this.removeAttribute('content-maximizing');
         }
-        else this.setAttribute('content-maximized', null);
       },
       'tap:delegate(section)': function(e){
         var layout = e.currentTarget;
@@ -111,7 +101,7 @@
         if (layout.hoverhide && this.parentNode == layout && (layout.hasAttribute('content-maximized') || layout.hasAttribute('content-maximizing')) && (layout == e.relatedTarget || !layout.contains(e.relatedTarget))) {
           minContent(layout, getLayoutElements(layout));
         }
-      }
+      },
     },
     accessors: {
       scrollTarget: {
