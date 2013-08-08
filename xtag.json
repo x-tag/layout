@@ -3,7 +3,7 @@
 	"tagName": "x-layout",
 	"version": "0.1.0",
 	"author": "Daniel Buchner",
-	"description": "",
+	"description": "A simple layout element that automatically stretches to fill the parent, with optional toggleable header and footer elements.",
 	"demo": "demo/index.html",
 	"categories": [],
 	"compatibility": {
@@ -13,5 +13,19 @@
 		"opera": 12,
 		"android": 2.1,
 		"ios": 4
+	},
+	"documentation": {
+		"description": "A simple layout element that automatically stretches to fill the parent, with optional toggleable header and footer elements.",
+		"attributes": {
+			"maxcontent": "If set, the maxcontent attribute specifies that any header/footer in the layout should be minimized to give the main content full screen space."	
+		},
+		"events": {},
+		"methods": {},
+		"getters": {
+			"maxcontent": "Returns whether the 'maxcontent' attribute is set or not."
+		},
+		"setters": {
+			"maxcontent": "Sets the 'maxcontent' attribute."
+		}	
 	}
 }
