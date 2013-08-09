@@ -47,7 +47,7 @@
 		</style>
 	</head>
 
-<body>
+<body style="height: 300px">
 	<x-layout id="layout-1">
 		<header>
 			<h1>I'm the Title!</h1>
@@ -158,14 +158,7 @@
 	var layout = document.getElementById('layout-1');
 	xtag.addEvents(document, {
 		'tap:delegate(button)': function(){
-			if (this.className == 'max') {
-				this.className = '';
-				layout.maxcontent = false;
-			}
-			else {
-				this.className = 'max';
-				layout.maxcontent = true;
-			}
+			layout.maxcontent = !layout.maxcontent;
 		}
 	});
 

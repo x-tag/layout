@@ -55,14 +55,13 @@ x-layout > section {
 	-ms-transform: translateZ(0);
 	transform: translateZ(0);
 	overflow: auto;
-	position: relative;
+	/* DON'T ERASE THIS: although this gets overridden by the flex display 
+	 * render, this fixes an issue with older browsers (ex: FF18) where unless
+	 * a flex item was height 0, it would refuse to shrink past the auto
+	 * height of the content, preventing the scrollbar from appearing */
+	height: 0; 
 }
 
-/* DONT ERASE THIS; this fixes an issue in ff18 with 100% height children of 
-   flex items */
-x-layout > section > *:only-child { 
-	position: absolute;	
-}
 
 x-layout:not([content-maximizing]):not([maxcontent]) > section{
 	margin: 0 !important; 
