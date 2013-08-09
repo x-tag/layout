@@ -41,7 +41,6 @@ x-layout > header, x-layout > footer {
 	}
 
 x-layout > section {
-	margin: 0!important;
 	-webkit-box-flex: 1;
 	-moz-box-flex: 1;
 	-webkit-flex: 1;
@@ -63,6 +62,10 @@ x-layout > section {
    flex items */
 x-layout > section > *:only-child { 
 	position: absolute;	
+}
+
+x-layout:not([content-maximizing]):not([maxcontent]) > section{
+	margin: 0 !important; 
 }
 
 x-layout[content-maximizing] > header, x-layout[content-maximized] > header, x-layout[maxcontent] > header{
