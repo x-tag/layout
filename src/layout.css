@@ -81,18 +81,3 @@ x-layout[content-maximizing] > footer, x-layout[content-maximized] > footer, x-l
 	transform: translateY(100%);
 }
 
-x-layout > *[input-spinner] {
-	display: block;
-	width: 0;
-	min-width: 0;
-	margin: 0;
-	padding: 0;
-	background: url(spinner-14.gif) no-repeat right center; 
-	opacity: 0;
-	-webkit-transition: width 0.2s, opacity 0.3s;
-	-moz-transition: width 0.2s, opacity 0.3s;
-	-ms-transition: width 0.2s, opacity 0.3s;
-	transition: width 0.2s, opacity 0.3s;
-}
-
-
