@@ -15,6 +15,7 @@
     <header><h1>x-layout</h1></header>
     <p>An <code class="prettyprint">&lt;x-layout&gt;</code> is simple layout element that automatically stretches content to fill the parent element, with optional toggleable header and footer elements.</p>
     <p>Essentially, this is a simple flexboxed component used to fill a phone's screen or some other parent element.</p>
+    <p><b>Due to using CSS flexbox, this component is not compatible with IE9 or below.</b></p>
     <section class="demo-wrap">
         <header><h2>Basic usage</h2></header>
         <p>The structure of the <code class="prettyprint">&lt;x-layout&gt;</code> should consist of an (optional) <code class="prettyprint">&lt;header&gt;</code>, a <code class="prettyprint">&lt;section&gt;</code> to act as the main content, and an (optional) <code class="prettyprint">&lt;footer&gt;</code>.
@@ -26,7 +27,7 @@
                         I'm the header!
                     </header>
                     <section>
-                        I'm the main body! <p>(I will automatically overflow if necessary.)</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p>
+                        I'm the main body! <!--<p>(I will automatically overflow if necessary.)</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p>-->
                     </section>
                     <footer>
                         I'm the footer!
@@ -38,13 +39,39 @@
             <h3>Markup</h3>
             <pre class="prettyprint html">&lt;x-layout&gt;<br/>    &lt;header&gt;<br/>        I'm the header!<br/>    &lt;/header&gt;<br/>    &lt;section&gt;<br/>        I'm the main body! &lt;p&gt;(I will automatically overflow if necessary.)&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;<br/>    &lt;/section&gt;<br/>    &lt;footer&gt;<br/>        I'm the footer!<br/>    &lt;/footer&gt;<br/>&lt;/x-layout&gt;</pre>
             <h3>CSS styling</h3>
-            <pre class="prettyprint css">x-layout &gt; header, x-layout &gt; footer{<br/>    padding: 0;<br/>    background-color: orange;<br/>    color: white;<br/>    font-weight: bold;<br/>    text-align: center;<br/>}<br/><br/>x-layout &gt; section{<br/>    background-color: rgba(255, 255, 255, .5);<br/>}</pre>
+            <pre class="prettyprint css">x-layout &gt; header, x-layout &gt; footer{<br/>    padding: 0;<br/>    background-color: orange;<br/>    color: white;<br/>    font-weight: bold;<br/>    text-align: center;<br/>}</pre>
+        </div>
+    </section>
+    <section class="demo-wrap">
+        <header><h2>Maximixing content with <code>maxcontent</code></h2></header>
+        <p>The header and footer of the <code class="prettyprint">&lt;x-layout&gt;</code> can minimized by applying the <code>maxcontent</code> attribute to the <code class="prettyprint">&lt;x-layout&gt;</code>.
+        </p>
+        <div class="two-up">
+            <figure class="demo">
+                <x-layout>
+                    <header>
+                        I'm the header!
+                    </header>
+                    <section>
+                        I'm the main body! <!--<p>(I will automatically overflow if necessary.)</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p>-->
+                    </section>
+                    <footer>
+                        I'm the footer!
+                    </footer>
+                </x-layout>
+            </figure>
+        </div>
+        <div class="markup-wrap two-up">
+            <button class="prettybutton toggle" data-toggle-attr="maxcontent">Toggle <code>maxcontent</code></button>
+            <h3>Markup</h3>
+            <pre class="prettyprint html">&lt;x-layout&gt;<br/>    &lt;header&gt;<br/>        I'm the header!<br/>    &lt;/header&gt;<br/>    &lt;section&gt;<br/>        I'm the main body! &lt;p&gt;(I will automatically overflow if necessary.)&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;<br/>    &lt;/section&gt;<br/>    &lt;footer&gt;<br/>        I'm the footer!<br/>    &lt;/footer&gt;<br/>&lt;/x-layout&gt;</pre>
         </div>
     </section>
 </article>
 
 <script type="text/javascript" src="../../../dist/brick.js"></script>
 <script type="text/javascript" src="../../../site/js/prettify.js"></script>
+<script type="text/javascript" src="../../../site/js/demo_helpers.js"></script>
 <script type="text/javascript" src="demo.js"></script>
 </body>
 </html>

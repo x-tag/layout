@@ -5,7 +5,3 @@ x-layout > header, x-layout > footer{
     font-weight: bold;
     text-align: center;
 }
-
-x-layout > section{
-    background-color: rgba(255, 255, 255, .5);
-}
