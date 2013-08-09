@@ -1,175 +1,50 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-	<head>
-		<meta charset="utf-8" />
-		
-		<title>X-Layout Demo</title>
-		  <!-- use these imports instead of the Brick files if running from submodule
-       		repository instead of the Brick repository -->
-       	<!--
-		<link rel="stylesheet" type="text/css" href="x-tag-components.css"/>
-		<link rel="stylesheet" type="text/css" href="../src/layout.css"/>		
-		
-		<script type="text/javascript" src="x-tag-components.js"></script>
-		<script type="text/javascript" src="../src/layout.js"></script> -->
-		<link rel="stylesheet" type="text/css" href="../../../dist/brick.css"/>
-  		<script type="text/javascript" src="../../../dist/brick.js"></script>
-		<style type="text/css">
-			
-			html, body {
-				height: 100%;
-				margin: 0;
-				padding: 0;
-			}
-			
-			body {
-				background: #eee;
-			}
-			
-			h1, h3 {
-				color: #fff;
-				margin: 0 auto;
-				background: -webkit-linear-gradient(top, #CD6623, #BD4A2D);
-				background: -moz-linear-gradient(top, #CD6623, #BD4A2D);
-				background: -ms-linear-gradient(top, #CD6623, #BD4A2D);
-				background: linear-gradient(top, #CD6623, #BD4A2D);
-			}
-			
-			h1 {
-				border-bottom: 1px solid #992F21;
-			}
-			
-			h3 {
-				border-top: 1px solid #992F21;
-			}
-			
-		</style>
-	</head>
-
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Brick: x-layout demos</title>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,300italic,600">
+    <link rel="stylesheet" type="text/css" href="../../../dist/brick.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../site/css/prettify.css">
+    <link rel="stylesheet" type="text/css" href="../../../site/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="demo.css"/>
+</head>
 <body>
+<article>
+    <header><h1>x-layout</h1></header>
+    <p>An <code class="prettyprint">&lt;x-layout&gt;</code> is simple layout element that automatically stretches content to fill the parent element, with optional toggleable header and footer elements.</p>
+    <p>Essentially, this is a simple flexboxed component used to fill a phone's screen or some other parent element.</p>
+    <section class="demo-wrap">
+        <header><h2>Basic usage</h2></header>
+        <p>The structure of the <code class="prettyprint">&lt;x-layout&gt;</code> should consist of an (optional) <code class="prettyprint">&lt;header&gt;</code>, a <code class="prettyprint">&lt;section&gt;</code> to act as the main content, and an (optional) <code class="prettyprint">&lt;footer&gt;</code>.
+        </p>
+        <div class="two-up">
+            <figure class="demo">
+                <x-layout>
+                    <header>
+                        I'm the header!
+                    </header>
+                    <section>
+                        I'm the main body! <p>(I will automatically overflow if necessary.)</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p><p>Filler text</p>
+                    </section>
+                    <footer>
+                        I'm the footer!
+                    </footer>
+                </x-layout>
+            </figure>
+        </div>
+        <div class="markup-wrap two-up">
+            <h3>Markup</h3>
+            <pre class="prettyprint html">&lt;x-layout&gt;<br/>    &lt;header&gt;<br/>        I'm the header!<br/>    &lt;/header&gt;<br/>    &lt;section&gt;<br/>        I'm the main body! &lt;p&gt;(I will automatically overflow if necessary.)&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;&lt;p&gt;Filler text&lt;/p&gt;<br/>    &lt;/section&gt;<br/>    &lt;footer&gt;<br/>        I'm the footer!<br/>    &lt;/footer&gt;<br/>&lt;/x-layout&gt;</pre>
+            <h3>CSS styling</h3>
+            <pre class="prettyprint css">x-layout &gt; header, x-layout &gt; footer{<br/>    padding: 0;<br/>    background-color: orange;<br/>    color: white;<br/>    font-weight: bold;<br/>    text-align: center;<br/>}<br/><br/>x-layout &gt; section{<br/>    background-color: rgba(255, 255, 255, .5);<br/>}</pre>
+        </div>
+    </section>
+</article>
 
-	<x-layout id="layout-1" scroll-target= "ul" scrollhide>
-		<header>
-			<h1>I'm the Title!</h1>
-		</header>
-		<section>
-			<ul>
-				<li>One</li>
-				<li>Two</li>
-				<li>Three</li>
-				<li>Four</li>
-				<li>Five</li>
-				<li>Six</li>
-				<li><button>Seven</button></li>
-				<li>One</li>
-				<li>Two</li>
-				<li>Three</li>
-				<li>Four</li>
-				<li>Five</li>
-				<li>Six</li>
-				<li>One</li>
-				<li>Two</li>
-				<li>Three</li>
-				<li>Four</li>
-				<li>Five</li>
-				<li>Six</li>
-				<li>One</li>
-				<li>Two</li>
-				<li>Three</li>
-				<li>Four</li>
-				<li>Five</li>
-				<li>Six</li>
-				<li>One</li>
-				<li>Two</li>
-				<li>Three</li>
-				<li>Four</li>
-				<li>Five</li>
-				<li>Six</li>
-				<li>One</li>
-				<li>Two</li>
-				<li>Three</li>
-				<li>Four</li>
-				<li>Five</li>
-				<li>Six</li>
-				<li>One</li>
-				<li>Two</li>
-				<li>Three</li>
-				<li>Four</li>
-				<li>Five</li>
-				<li>Six</li>
-				<li>One</li>
-				<li>Two</li>
-				<li>Three</li>
-				<li>Four</li>
-				<li>Five</li>
-				<li>Six</li>
-				<li>One</li>
-				<li>Two</li>
-				<li>Three</li>
-				<li>Four</li>
-				<li>Five</li>
-				<li>Six</li>
-				<li>One</li>
-				<li>Two</li>
-				<li>Three</li>
-				<li>Four</li>
-				<li>Five</li>
-				<li>Six</li>
-				<li>One</li>
-				<li>Two</li>
-				<li>Three</li>
-				<li>Four</li>
-				<li>Five</li>
-				<li>Six</li>
-				<li>One</li>
-				<li>Two</li>
-				<li>Three</li>
-				<li>Four</li>
-				<li>Five</li>
-				<li>Six</li>
-				<li>One</li>
-				<li>Two</li>
-				<li>Three</li>
-				<li>Four</li>
-				<li>Five</li>
-				<li>Six</li>
-				<li>One</li>
-				<li>Two</li>
-				<li>Three</li>
-				<li>Four</li>
-				<li>Five</li>
-				<li>Six</li>
-				<li>One</li>
-				<li>Two</li>
-				<li>Three</li>
-				<li>Four</li>
-				<li>Five</li>
-				<li>Six</li>
-			</ul>
-		</section>
-		<footer>
-			<h3>I'm the Footer!</h3>	
-		</footer>
-	</x-layout>
-	
+<script type="text/javascript" src="../../../dist/brick.js"></script>
+<script type="text/javascript" src="../../../site/js/prettify.js"></script>
+<script type="text/javascript" src="demo.js"></script>
 </body>
-
-<script type="text/javascript">
-	var layout = document.getElementById('layout-1');
-	xtag.addEvents(document, {
-		'tap:delegate(button)': function(){
-			if (this.className == 'max') {
-				this.className = '';
-				layout.maxcontent = false;
-			}
-			else {
-				this.className = 'max';
-				layout.maxcontent = true;
-			}
-		}
-	});
-
-</script>
-
 </html>

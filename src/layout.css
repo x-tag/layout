@@ -24,6 +24,7 @@ x-layout {
 }
 
 x-layout > header, x-layout > footer {
+	margin: 0 !important;
 	overflow: hidden;
 	z-index: 1;
 	-webkit-transform: translateZ(0);
@@ -40,6 +41,7 @@ x-layout > header, x-layout > footer {
 	}
 
 x-layout > section {
+	margin: 0!important;
 	-webkit-box-flex: 1;
 	-moz-box-flex: 1;
 	-webkit-flex: 1;

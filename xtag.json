@@ -17,15 +17,13 @@
 	"documentation": {
 		"description": "A simple layout element that automatically stretches to fill the parent, with optional toggleable header and footer elements.",
 		"attributes": {
-			"maxcontent": "If set, the maxcontent attribute specifies that any header/footer in the layout should be minimized to give the main content full screen space."	
+			
 		},
 		"events": {},
 		"methods": {},
 		"getters": {
-			"maxcontent": "Returns whether the 'maxcontent' attribute is set or not."
 		},
 		"setters": {
-			"maxcontent": "Sets the 'maxcontent' attribute."
 		}	
 	}
 }

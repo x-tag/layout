@@ -1,0 +1,11 @@
+x-layout > header, x-layout > footer{
+    padding: 0;
+    background-color: orange;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+x-layout > section{
+    background-color: rgba(255, 255, 255, .5);
+}
