@@ -1,5 +1,14 @@
 
 x-layout {
+	/* relative positioning is important because x-layout should really be 
+	 * placed in a parent container for it to fill;
+	 * also, setting position:absolute causes older flexbox implementations, 
+	 * such as Firefox 18 (which is the version in FirefoxOS) to render 
+	 * flex items in a way such that it won't override a height:0 declaration,
+	 * which is important for allowing the flex item to shrink past its
+	 * content size */
+	position: relative!important;
+
 	display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
 	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
 	display: -ms-flexbox;      /* TWEENER - IE 10 */
@@ -59,12 +68,20 @@ x-layout > section {
 	 * render, this fixes an issue with older browsers (ex: FF18) where unless
 	 * a flex item was height 0, it would refuse to shrink past the auto
 	 * height of the content, preventing the scrollbar from appearing */
-	height: 0; 
+	height: 0;
+	position: relative;
 }
-
 
 x-layout:not([content-maximizing]):not([maxcontent]) > section{
 	margin: 0 !important; 
+}
+
+x-layout > section > *:only-child{
+	/* fix for issue where 100% height children of flex items render as zero 
+	 * height in Webkit
+	 * see: http://stackoverflow.com/a/15389545
+	 */
+	position: absolute; 
 }
 
 x-layout[content-maximizing] > header, x-layout[content-maximized] > header, x-layout[maxcontent] > header{
