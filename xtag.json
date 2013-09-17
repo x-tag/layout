@@ -4,7 +4,7 @@
 	"version": "0.1.0",
 	"author": "Daniel Buchner",
 	"description": "A simple layout element that automatically stretches to fill the parent, with optional toggleable header and footer elements.",
-	"demo": "demo/index.html",
+	"demo": "demo/testpage.html",
 	"categories": [],
 	"compatibility": {
 		"firefox": 5,
@@ -17,7 +17,7 @@
 	"documentation": {
 		"description": "A simple layout element that automatically stretches to fill the parent, with optional toggleable header and footer elements.",
 		"attributes": {
-			"maxcontent": "If set, the maxcontent attribute specifies that any header/footer in the layout should be minimized to give the main content full screen space."	
+			"maxcontent": "If set, the maxcontent attribute specifies that any header/footer in the layout should be minimized to give the main content full screen space."
 		},
 		"events": {},
 		"methods": {},
@@ -26,6 +26,6 @@
 		},
 		"setters": {
 			"maxcontent": "Sets the 'maxcontent' attribute."
-		}	
+		}
 	}
 }
