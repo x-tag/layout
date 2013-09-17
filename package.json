@@ -1,9 +1,9 @@
 {
   "name": "x-layout",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "dependencies": {},
   "devDependencies": {
-   "bower": "~1.2.0",
+    "bower": "~1.2.0",
     "grunt": "~0.4.0",
     "grunt-smush-components": "~0.2.0",
     "grunt-contrib-concat": "~0.1.2",
