@@ -7,7 +7,7 @@ x-layout {
   * flex items in a way such that it won't override a height:0 declaration,
   * which is important for allowing the flex item to shrink past its
   * content size */
-  position: relative!important;
+  position: relative !important;
 
   display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
   display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
@@ -35,6 +35,10 @@ x-layout > header, x-layout > footer {
   margin: 0 !important;
   overflow: hidden;
   z-index: 1;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
   -ms-transform: translateZ(0);
@@ -82,6 +86,19 @@ x-layout > section > *:only-child{
   */
   height: 100%;
   position: absolute;
+}
+
+x-layout[hide-trigger] > header,
+x-layout[hide-trigger] > footer,
+x-layout[content-maximizing] > header, x-layout[content-maximized] > header, x-layout[maxcontent] > header,
+x-layout[content-maximizing] > footer, x-layout[content-maximized] > footer, x-layout[maxcontent] > footer {
+    position: absolute;
+    width: 100%;
+}
+
+x-layout[hide-trigger] > footer,
+x-layout[content-maximizing] > footer, x-layout[content-maximized] > footer, x-layout[maxcontent] > footer {
+    bottom: 0;
 }
 
 x-layout[content-maximizing] > header, x-layout[content-maximized] > header, x-layout[maxcontent] > header{

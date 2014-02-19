@@ -40,14 +40,20 @@
 			h3 {
 				border-top: 1px solid #992F21;
 			}
+			
+			select {
+				display: inline-block;
+				margin-left: 15px;
+				vertical-align: middle;
+			}
 
 		</style>
 	</head>
 
 <body style="height: 300px">
-	<x-layout id="layout-1">
+	<x-layout id="layout-1" hide-trigger="tap">
 		<header>
-			<h1>I'm the Title!</h1>
+			<h1>I'm the Title! <select id="trigger_type"><option value="tap">Tap</option><option value="hover">Hover</option><option value="scroll">Scroll</option></select></h1>
 		</header>
 		<section>
 			<ul>
@@ -153,12 +159,20 @@
 
 <script type="text/javascript">
 	var layout = document.getElementById('layout-1');
+	var select = document.getElementById('trigger_type');
+	
+	layout.hideTrigger = select.value;
+	
 	xtag.addEvents(document, {
 		'tap:delegate(button)': function(){
 			layout.maxcontent = !layout.maxcontent;
 		}
 	});
-
+	
+	xtag.addEvent(select, 'change', function(e){
+		layout.hideTrigger = select.value;
+	});
+	
 </script>
 
 </html>
