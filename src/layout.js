@@ -72,12 +72,12 @@
         }
       },
       'mouseout': function(e){
-        if (layout.hideTrigger == 'hover' && !this.maxcontent && !this.hasAttribute('content-maximized') && (!e.relatedTarget || !this.contains(e.target))) {
+        if (this.hideTrigger == 'hover' && !this.maxcontent && !this.hasAttribute('content-maximized') && (!e.relatedTarget || !this.contains(e.relatedTarget))) {
           maxContent(this);
         }
       },
       'mouseover': function(e){
-        if (layout.hideTrigger == 'hover' && !this.maxcontent && (this.hasAttribute('content-maximized') || this.hasAttribute('content-maximizing')) && (this == e.relatedTarget || !this.contains(e.relatedTarget))) {
+        if (this.hideTrigger == 'hover' && !this.maxcontent && (this.hasAttribute('content-maximized') || this.hasAttribute('content-maximizing')) && (this == e.relatedTarget || !this.contains(e.relatedTarget))) {
           minContent(this);
         }
       }
@@ -89,7 +89,7 @@
       scrollBuffer: {
         attribute: { name: 'scroll-buffer' },
         get: function(){
-          return Number(this.getAttribute('scroll-buffer')) || 30;
+          return Number(this.getAttribute('scroll-buffer')) || 80;
         }
       },
       hideTrigger: {
