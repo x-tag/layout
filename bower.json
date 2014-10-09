@@ -13,7 +13,6 @@
     "src/layout.styl"
   ],
   "dependencies": {
-    "x-tag-core": "*",
-    "brick-common": "*"
+    "x-tag-core": "*"
   }
 }
