@@ -1,7 +1,7 @@
 {
 	"name": "Layout",
 	"tagName": "x-layout",
-	"version": "0.1.4",
+	"version": "0.1.10",
 	"author": "Daniel Buchner",
 	"description": "A simple layout element that automatically stretches to fill the parent, with optional toggleable header and footer elements.",
 	"demo": "demo/testpage.html",

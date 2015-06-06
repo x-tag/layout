@@ -1,6 +1,6 @@
 {
   "name": "x-layout",
-  "version": "0.1.4",
+  "version": "0.1.10",
   "dependencies": {},
   "devDependencies": {
     "bower": "~1.2.0",
@@ -12,5 +12,9 @@
     "grunt-bumpup": "~0.2.0",
     "grunt-contrib-connect": "~0.3.0",
     "grunt-contrib-stylus": "~0.8.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/x-tag/layout.git"
   }
 }
