@@ -110,7 +110,7 @@
       scrollBuffer: {
         attribute: { name: 'scroll-buffer' },
         get: function(){
-          return Number(this.getAttribute('scroll-buffer')) || 30;
+          return Number(this.getAttribute('scroll-buffer')) || 80;
         }
       },
       taphide: {
