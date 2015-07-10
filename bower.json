@@ -1,7 +1,7 @@
 {
   "name": "x-tag-layout",
   "description": "A simple layout element that automatically stretches to fill the parent, with optional toggleable header and footer elements.",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "keywords": [
     "web-components",
     "element",
